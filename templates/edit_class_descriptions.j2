@@ -1,0 +1,53 @@
+<!-- 
+Citation for the following code:
+Date: 06/05/2022
+Adapted from edit_people.j2 from:
+https:github.com/osu-340-ecampus/flask-start-app/blob/master/bsg_people_app/templates/edit_people.j2 
+-->
+
+<html>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<head>
+    <title>Edit Class Description</title>
+</head>
+ 
+<body>
+    <div>
+        <table border="1" cellpadding="5">
+            <caption> Editing Class Description: </caption>
+            {% if data %}
+                <thead>
+                    <tr>
+						<th>Class ID</th>
+						<th>Class Name</th>
+						<th>Description</th>
+                    </tr>
+ 
+                <tbody>
+                    {% for item in data %}
+                    <tr>
+                        {% for key in item.keys() %}
+                        <td>{{item[key]}}</td> {% endfor %}
+                    </tr>
+                    {% endfor %}
+            {% endif %}
+        </table>
+ 
+        <div>
+            <form id="edit_class_descriptions" action="/edit_class_descriptions/{{data[0].classID}}" method="POST">
+                <legend><strong>Edit Class Description</strong></legend>
+                <fieldset>  
+                    <label for="className">Class Name:</label>
+                    <input type="text" value="{{data[0].className}}" id="className" name="className" required>
+                   
+                    <label for="description">Description:</label>
+                    <input type="text" value="{{data[0].description}}" id="description" name="description" required>
+ 
+                </fieldset>
+                <input type="submit" value="Edit Class Descriptions" name="Edit_Class_Descriptions" style="margin:.5rem;">
+                <a href='/class_descriptions'><input type="button" value="Cancel"></a>
+            </form>
+ 
+</html>
+ 

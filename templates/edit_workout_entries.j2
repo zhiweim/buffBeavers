@@ -1,0 +1,79 @@
+<!-- 
+Citation for the following code:
+Date: 06/05/2022
+Adapted from edit_people.j2 from:
+https:github.com/osu-340-ecampus/flask-start-app/blob/master/bsg_people_app/templates/edit_people.j2 
+-->
+
+<html>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+ 
+<head>
+    <title>Edit Workout Entries</title>
+</head>
+ 
+<body>
+    <div>
+        <table border="1" cellpadding="5">
+            <caption> Editing Workout Entries: </caption>
+            {% if data %}
+                <thead>
+                    <tr>
+                        <th>Entry ID</th>
+						<th>User ID</th>
+						<th>Date</th>
+						<th>Workout Name</th>
+						<th>Workout Sets</th>
+						<th>Workout Reps</th>
+						<th>Workout Weights</th>
+                    </tr>
+ 
+                <tbody>
+                    {% for item in data %}
+                    <tr>
+                        {% for key in item.keys() %}
+                        <td>{{item[key]}}</td> {% endfor %}
+                    </tr>
+                    {% endfor %}
+            {% endif %}
+        </table>
+ 
+        <div>
+            <form id="edit_workout_entries" action="/edit_workout_entries/{{data[0].entryID}}" method="POST">
+                <legend><strong>Edit Workout Entry</strong></legend>
+                <fieldset>  
+
+                    <label for="userID">User ID:</label>
+                    <select id="userID" name="userID" placeholder="" required>
+                        {% for user in users %}
+                            {% if ["userID"] == data[0].userID %}
+                                <option value="{{ user['userID'] }}" selected> {{user['firstName']}} {{user['lastName']}} </option>
+                            {% else %}
+                                <option value="{{ user['userID'] }}"> {{user["firstName"]}} {{user['lastName']}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                   
+                    <label for="date">Date:</label>
+                    <input type="date" value="{{data[0].date}}" id="date" name="date" required>
+ 
+                    <label for="workoutName">Workout Name:</label>
+                    <input type="text" value="{{data[0].workoutName}}" id="workoutName" name="workoutName" required>
+ 
+                    <label for="workoutSet">Workout Sets:</label>
+                    <input type="number" value="{{data[0].workoutSet}}" id="workoutSet" name="workoutSet" required>
+ 
+                    <label for="workoutRep">Workout Reps:</label>
+                    <input type="number" value="{{data[0].workoutRep}}" id="workoutRep" name="workoutRep" required>
+               
+                    <label for="workoutWeight">Workout Weight:</label>
+                    <input type="number" value="{{data[0].workoutWeight}}" id="workoutWeight" name="workoutWeight" required>
+ 
+
+                </fieldset>
+                <input type="submit" value="Edit Workout Entries" name="Edit_Workout_Entries" style="margin:.5rem;">
+                <a href='/workout_entries'><input type="button" value="cancel"></a>
+            </form>
+ 
+</html>
+ 

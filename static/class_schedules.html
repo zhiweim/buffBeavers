@@ -1,0 +1,161 @@
+<!--
+# Date: 5/4/2022
+# Based on:
+# Source URL: https://canvas.oregonstate.edu/courses/1870053/assignments/8817246 
+-->
+<html>
+<head>
+<title>Class Schedules</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+		function showform(dowhat) {
+			/*
+			* four DIVS: browse, insert, update, delete
+			* this function sets one visible the others not
+			*/
+			if (dowhat == 'insert'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'update'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'delete'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'block';
+			}
+      else if (dowhat == 'all'){
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'block';
+			}
+			else { //by default display browse
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+		}
+    function newPerson() { showform('insert'); }
+    function updatePerson(pid) { showform('update'); }
+    function deletePerson(pid) { showform ('delete'); }
+    function browsePeople() { showform ('browse'); }
+    function showAll() { showform ('all'); }
+</script>
+</head>
+
+<body onload="browsePeople()">
+<h1>Class Schedules</h1>
+
+[ <a href="index.html">Workout Entries</a> | <a href="users.html">Users</a> | <a href="trainers.html">Trainers</a> | <a href="class_schedules.html">Class Schedules</a> | <a href="gyms.html">Gyms</a> | <a href="class_descriptions.html">Class Descriptions</a>]
+
+<div id="browse">
+<p><a href="#" onClick="showAll()">Display all forms</a> </p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th><a href="#" onClick="newPerson()">New</a></th>
+    <th></th>
+    <th>Class ID</th>
+    <th>Gym ID</th>
+    <th>Meeting time</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th>Number Enrolled</th>
+    <th>Spots Remaining</th>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updatePerson('this.personID')">Edit</a></td>
+    <td><a href="#" onclick="deletePerson('this.personID')">Delete</a></td>
+    <td>3</td>
+    <th>Portland</th>
+    <td>12:00 PM</td>
+    <td>2022-06-10</td>
+    <td>2022-08-10</td>
+    <td>22</td>
+    <td>8</td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updatePerson('this.personID')">Edit</a></td>
+    <td><a href="#" onclick="deletePerson('this.personID')">Delete</a></td>
+    <td>1</td>
+    <th>Salem</th>
+    <td>7:30 PM</td>
+    <td>2022-04-25</td>
+    <td>2022-05-25</td>
+    <td>5</td>
+    <td>25</td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updatePerson('this.personID')">Edit</a></td>
+    <td><a href="#" onclick="deletePerson('this.personID')">Delete</a></td>
+    <td>2</td>
+    <th>Corvallis</th>
+    <td>8:00 AM</td>
+    <td>2022-05-01</td>
+    <td>2022-09-01</td>
+    <td>30</td>
+    <td>0</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div> <!-- browse -->
+<div id="insert">
+    <form method="POST" id="addPlanet">
+        <legend><strong>Add Class</strong></legend>
+          <fieldset class="fields">
+            <label> Gym ID </label> <input type="text" name="classesLocation">
+            <label> Meeting Time </label> <input type="time" name="classesTime">
+            <label> Start Date </label> <input type="text"name="classesStartDate">
+            <label> End Date </label> <input type="text" name="classesEndDate">
+            <label> Number Enrolled </label> <input type="text" name="classesNumOfEnrolled">
+            <label> Spots Remaining </label> <input type="test" name="classesNumOfRemaining">
+      </fieldset>
+          <input class="btn" type="submit" id="addPerson" value="Create Class">
+          <input class="btn" type="button" value="Cancel" onClick="browsePeople()">
+	</form> 
+</div><!-- insert -->
+<p>&nbsp;</p>
+<div id="update">
+    <form method="POST" id="UpdateClass">
+        <legend><strong>Update Class</strong></legend>
+          <fieldset class="fields">
+            <fieldset class="fields">
+              <input type="hidden" name="classID" id="updateClassID" value="1">
+              <label> Enter Class ID to update: </label> <input type="text" name="userID"><br><br>
+            <label> Gym ID </label> <input type="text" name="classesLocation">
+            <label> Meeting Time </label> <input type="time" name="classesTime">
+            <label> Start Date </label> <input type="text"name="classesStartDate">
+            <label> End Date </label> <input type="text" name="classesEndDate">
+            <label> Number Enrolled </label> <input type="text" name="classesNumOfEnrolled">
+            <label> Spots Remaining </label> <input type="test" name="classesNumOfRemaining">
+      </fieldset>
+          <input class="btn" type="submit" id="UpdateSavePerson" value="Save Class Update">
+          <input class="btn" type="button" value="Cancel" onClick="browsePeople()">
+	</form> 
+</div><!-- update -->
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form method="POST" id="deletePerson">
+      <legend><strong>Delete Class</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you wish to delete the following class?</p>
+          <input type="hidden" name="personID" id="deletepersonID" value="1">
+          <label><strong>Class:</strong></label> 1
+            <label> <strong>Class Name</strong> </label> Aquatic Exercises
+            
+    </fieldset>
+    <input class="btn" type="submit" id="DeletePerson" value="Delete Class">
+          <input class="btn" type="button" value="Cancel" onClick="browsePeople()">
+  </form> 
+</div><!-- delete -->
+
+</body>
+</html>

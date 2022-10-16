@@ -1,0 +1,72 @@
+<!-- 
+Citation for the following code:
+Date: 06/05/2022
+Adapted from people.j2 from:
+https:github.com/osu-340-ecampus/flask-start-app/blob/master/bsg_people_app/templates/people.j2 
+-->
+
+<html>
+<head>
+	<title>Gyms</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+	<ul>
+		<li><a class="active" href="/">Home</a></li>
+		<li><a href="/gyms">Gyms</a></li>
+		<li><a href="/users">Users</a></li>
+		<li><a href="/trainers">Trainers</a></li>
+		<li><a href="/workout_entries">Workout Entries</a></li>
+		<li><a href="/class_descriptions">Class Descriptions</a></li>
+		<li><a href="/class_schedules">Class Schedules</a></li>
+	</ul>
+	<div>
+		<h1 class="main-table">Gyms</h1> 
+		<table border="1" cellpadding="5" class="main-table">
+            {% if data %}
+			    <thead>
+				    <tr>
+                        <th>Gym ID</th>
+						<th>Location</th>
+						<th>Number of Users</th>
+						<th>Number of Trainers</th>
+						<th>Edit</th>
+						<th>Delete</th>
+                    </tr>
+
+				<tbody>
+					{% for item in data %}
+					    <tr>
+                            {% for key in item.keys() %}
+						    <td> {{item[key]}} </td> 
+                            {% endfor %}
+						    <td><a href="edit_gyms/{{item.gymID}}">Edit</a></td>
+						    <td><a href="delete_gyms/{{item.gymID}}">Delete</a></td>
+					    </tr> 
+                        {% endfor %} 
+                {% endif %} 
+        </table>   
+	<p>&nbsp;</p>
+	</div>
+
+	<div>
+		<form id="insertGym" action="/gyms" method="POST">
+			<legend><strong>Add a New Gym</strong></legend>
+			<fieldset>
+				<label for="gym">Location:</label>
+				<input type="text" id="location" name="location" required>
+
+				<label for="numUser">Number of Users:</label>
+				<input type="number" id="numUser" name="numUser"required>
+
+                <label for="numTrainer">Number of Trainers:</label>
+				<input type="number" id="numTrainer" name="numTrainer" required>
+            </fieldset>
+
+			<input type="submit" value="Add Gym" name="Add_Gym" style="margin:.5rem;">
+        </form>
+	</div>
+
+</body>
+</html>

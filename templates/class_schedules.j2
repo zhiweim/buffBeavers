@@ -1,0 +1,104 @@
+<!-- 
+Citation for the following code:
+Date: 06/05/2022
+Adapted from people.j2 from:
+https:github.com/osu-340-ecampus/flask-start-app/blob/master/bsg_people_app/templates/people.j2 
+-->
+
+<html>
+<head>
+	<title>Class Schedules</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	
+</head>
+
+<body>
+	<ul>
+		<li><a class="active" href="/">Home</a></li>
+		<li><a href="/gyms">Gyms</a></li>
+		<li><a href="/users">Users</a></li>
+		<li><a href="/trainers">Trainers</a></li>
+		<li><a href="/workout_entries">Workout Entries</a></li>
+		<li><a href="/class_descriptions">Class Descriptions</a></li>
+		<li><a href="/class_schedules">Class Schedules</a></li>
+	</ul>
+	<div>
+		<h1 class="main-table">Class Schedules</h1> 
+		<table border="1" cellpadding="5" class="main-table">
+            {% if data %}
+			    <thead>
+				    <tr>
+                        <th>Class ID</th>
+						<th>Gym ID</th>
+						<th>Meeting Time</th>
+						<th>Start Date</th>
+						<th>End Date</th>
+						<th>Number of Users Enrolled</th>
+						<th>Number of Spots Remaining</th>
+						<th>Edit</th>
+						<th>Delete</th>
+                    </tr>
+				<tbody>
+					{% for item in data %}
+					    <tr>
+                            {% for key in item.keys() %}
+						    <td> {{item[key]}} </td> 
+                            {% endfor %}
+						    <td><a href="edit_class_schedules/{{item.classID}}">Edit</a></td>
+						    <td><a href="delete_class_schedules/{{item.classID}}">Delete</a></td>
+					    </tr> 
+                        {% endfor %} 
+                {% endif %} 
+        </table>   
+	<p>&nbsp;</p>
+	</div>
+
+	<div>
+		<form id="insertClassSchedule" action="/class_schedules" method="POST">
+			<legend><strong>Add a New Class Schedule</strong></legend>
+			<fieldset>
+                <label for="classID">Class ID:</label>
+                    <select id="classID" name="classID" placeholder="" required>
+                        {% for class in classes %}
+                            {% if class["classID"] == data[0].classID %}
+                                <option value="{{ class['classID'] }}" selected> {{class['className']}} </option>
+                            {% else %}
+                                <option value="{{ class['classID'] }}"> {{class['className']}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+				
+				<label for="gymID">Gym ID:</label>
+                    <select  id="gymID" name="gymID" placeholder="" required>
+                        {% for gym in gyms %}
+                            {% if gym["gymID"] == data[0].gymID %}
+                                <option value="{{ gym['gymID'] }}" selected> {{gym['location']}} </option>
+                            {% else %}
+                                <option value="{{ gym['gymID'] }}"> {{gym['location']}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+
+				<label for="meetingTime">Meeting Time:</label>
+				<input type="time" id="meetingTime" name="meetingTime" required>
+
+				<label for="startDate">Start Date:</label>
+				<input type="date" id="startDate" name="startDate" required>
+
+                <label for="endDate">End Date:</label>
+				<input type="date" id="endDate" name="endDate" required>
+		        
+				<label for="numEnrolled">Number Enrolled:</label>
+				<input type="number" id="numEnrolled" name="numEnrolled" required>
+				
+				<label for="numRemaining">Number Remaining:</label>
+				<input type="number" id="numRemaining" name="numRemaining" required>
+
+            </fieldset>
+
+			<input type="submit" value="Add Class Schedule" name="Add_Class_Schedule" style="margin:.5rem;">
+        </form>
+	</div>
+
+</body>
+</html>

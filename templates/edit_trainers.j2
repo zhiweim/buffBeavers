@@ -1,0 +1,68 @@
+<!-- 
+Citation for the following code:
+Date: 06/05/2022
+Adapted from edit_people.j2 from:
+https:github.com/osu-340-ecampus/flask-start-app/blob/master/bsg_people_app/templates/edit_people.j2 
+-->
+
+<html>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+ 
+<head>
+    <title>Edit Trainer</title>
+</head>
+ 
+<body>
+    <div>
+        <table border="1" cellpadding="5">
+            <caption> Editing Trainer: </caption>
+            {% if data %}
+                <thead>
+                    <tr>
+						<th>Trainer ID</th>
+						<th>Gym ID</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Number of Trainees</th>
+                    </tr>
+ 
+                <tbody>
+                    {% for item in data %}
+                    <tr>
+                        {% for key in item.keys() %}
+                        <td>{{item[key]}}</td> {% endfor %}
+                    </tr>
+                    {% endfor %}
+            {% endif %}
+        </table>
+ 
+        <div>
+            <form id="editTrainer" action="/edit_trainers/{{data[0].trainerID}}" method="POST">
+                <legend><strong>Edit Trainer</strong></legend>
+                <fieldset>  
+                    <label for="gymID">Gym ID:</label>
+                    <select id="gymID" name="gymID" placeholder="" required>
+                        {% for gym in gyms %}
+                            {% if gym["gymID"] == data[0].gymID %}
+                                <option value="{{ gym['gymID'] }}" selected> {{gym['location']}} </option>
+                            {% else %}
+                                <option value="{{ gym['gymID'] }}"> {{gym['location']}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+
+                    <label for="firstName">First Name:</label>
+                    <input type="text" value="{{data[0].firstName}}" id="firstName" name="firstName" required>
+ 
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" value="{{data[0].lastName}}" id="lastName" name="lastName" required>
+ 
+                    <label for="numTrainee">Number Of Trainees:</label>
+                    <input type="number" value="{{data[0].numTrainee}}" id="numTrainee" name="numTrainee" required>
+ 
+                </fieldset>
+                <input type="submit" value="Edit Trainer" name="Edit_Trainer" style="margin:.5rem;">
+                <a href='/trainers'><input type="button" value="Cancel"></a>
+            </form>
+ 
+</html>

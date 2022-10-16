@@ -1,0 +1,118 @@
+<!--
+# Date: 5/4/2022
+# Based on:
+# Source URL: https://canvas.oregonstate.edu/courses/1870053/assignments/8817246 
+-->
+<html>
+<head>
+<title>Workout Entries</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Workout Entries</h1>
+
+[ <a href="index.html">Workout Entries</a> | <a href="users.html">Users</a> | <a href="trainers.html">Trainers</a> | <a href="class_schedules.html">Class Schedules</a> | <a href="gyms.html">Gyms</a> | <a href="class_descriptions.html">Class Descriptions</a>]
+
+<div id="browse">
+  <p><a href="#" onClick="showAll()">Display all forms</a> </p>
+  <table border="1" cellpadding="5">
+    <tr>
+      <th><a href="#" onClick="newPerson()">New</a></th>
+      <th></th>
+      <th>User ID</th>
+      <th>Date</th>
+      <th>Workout</th>
+      <th>Reps</th>
+      <th>Weight</th>
+      <th>Sets</th>
+    </tr>
+    <tr>
+      <td><a href="#" onClick="updatePerson('this.personID')">Edit</a></td>
+      <td><a href="#" onclick="deletePerson('this.personID')">Delete</a></td>
+      <td>1</td>
+      <td>2022-02-15</td>
+      <td>Barbell Bench</td>
+      <td>5</td>
+      <td>225</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td><a href="#" onClick="updatePerson('this.personID')">Edit</a></td>
+      <td><a href="#" onclick="deletePerson('this.personID')">Delete</a></td>
+      <td>2</td>
+      <td>2022-02-16</td>
+      <td>Barbell Squats</td>
+      <td>8</td>
+      <td>275</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td><a href="#" onClick="updatePerson('this.personID')">Edit</a></td>
+      <td><a href="#" onclick="deletePerson('this.personID')">Delete</a></td>
+      <td>3</td>
+      <td>2022-02-16</td>
+      <td>Deadlift</td>
+      <td>8</td>
+      <td>315</td>
+      <td>3</td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+  </div> <!-- browse -->
+<div id="browse" style="display: block">
+<p><strong>Browse Entries</strong></p>
+<form method="POST" id="addPlanet">
+  <legend><strong>Access Workout Entries - Enter a user ID to access all of logged workout entries</strong></legend>
+    <fieldset class="fields">
+      <label> userID </label> <input type="text" name="location">
+    </fieldset>
+    <input class="btn" type="submit" id="addPerson" value="Access Entry">
+    <input class="btn" type="button" value="cancel" onClick="browsePeople()">
+</form> 
+<p>&nbsp;</p>
+</div> <!-- browse -->
+<div id="insert" style="display: block">
+    <form id="addWorkout">
+        <legend><strong>Log Workout Entries</strong></legend>
+          <fieldset class="fields">
+            <label> Workout </label> <input type="text" name="Workout1">
+            <label> Sets </label> <input type="text" name="Sets">
+            <label> Reps </label> <input type="text" name="Reps">
+            <label> Weight </label> <input type="text" name="Weight"><br>
+          </fieldset>
+          <input class="btn" type="submit" id="addworkout" value="Add workouts">
+          <input class="btn" type="button" value="cancel">
+	</form> <!--add new planet-->
+</div><!-- insert -->
+
+<p>&nbsp;</p>
+<div id="update" style="display: block">
+  <form id="updateWorkout">
+      <legend><strong>Update Workout Entries</strong></legend>
+          <fieldset class="fields">
+          <label> Entry ID: </label> <input type="text" name="EntryID"> <br>
+          <label> Workout </label> <input type="text" name="Workout1">
+          <label> Sets </label> <input type="text" name="Sets">
+          <label> Reps </label> <input type="text" name="Reps">
+          <label> Weight </label> <input type="text" name="Weight"><br>
+    </fieldset>
+    <input class="btn" type="submit" id="UpdateSavePlanet" value="Update workout entry">
+          <input class="btn" type="button" value="cancel" >
+  </form> 
+</div><!-- update -->
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form id="deletePlanet">
+      <legend><strong>Delete Workout Entry</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you wish to delete the following entry?</p>
+          <label> Entry ID: </label> <input type="text" name="EntryID"> <br>
+
+    </fieldset>
+    <input class="btn" type="submit" id="DeletePlanet" value="Delete workout entry">
+          <input class="btn" type="button" value="cancel" >
+  </form> 
+</div><!-- delete -->
+</body>
+</html>

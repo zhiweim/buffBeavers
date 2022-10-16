@@ -1,0 +1,89 @@
+<!-- 
+Citation for the following code:
+Date: 06/05/2022
+Adapted from people.j2 from:
+https:github.com/osu-340-ecampus/flask-start-app/blob/master/bsg_people_app/templates/people.j2 
+-->
+
+<html>
+<head>
+	<title>Trainers</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+	<ul>
+		<li><a class="active" href="/">Home</a></li>
+		<li><a href="/gyms">Gyms</a></li>
+		<li><a href="/users">Users</a></li>
+		<li><a href="/trainers">Trainers</a></li>
+		<li><a href="/workout_entries">Workout Entries</a></li>
+		<li><a href="/class_descriptions">Class Descriptions</a></li>
+		<li><a href="/class_schedules">Class Schedules</a></li>
+	</ul>
+	<div>
+		<h1 class="main-table">Trainers</h1> 
+		<table border="1" cellpadding="5" class="main-table">
+            {% if data %}
+			    <thead>
+				    <tr>
+						<th>Trainer ID</th>
+						<th>Gym ID</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Number of Trainees</th>
+						<th>Edit</th>
+						<th>Delete</th>
+                    </tr>
+
+				<tbody>
+					{% for item in data %}
+					    <tr>
+                            {% for key in item.keys() %}
+
+						    <td> {{item[key]}} </td> 
+                            {% endfor %}
+
+						    <td><a href="edit_trainers/{{item.trainerID}}">Edit</a></td>
+						    <td><a href="delete_trainers/{{item.trainerID}}">Delete</a></td>
+
+					    </tr> 
+                        {% endfor %} 
+                {% endif %} 
+        </table>   
+	<p>&nbsp;</p>
+	</div>
+
+	<div>
+		<form id="insertTrainer" action="/trainers" method="POST">
+			<legend><strong>Add a New Trainer</strong></legend>
+			<fieldset>
+                <label for="gymID">Gym ID:</label>
+                    <select id="gymID" name="gymID" placeholder="" required>
+                        {% for gym in gyms %}
+                            {% if gym["gymID"] == data[0].gymID %}
+                                <option value="{{ gym['gymID'] }}" selected> {{gym['location']}} </option>
+                            {% else %}
+                                <option value="{{ gym['gymID'] }}"> {{gym['location']}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+
+				<label for="firstname">First Name:</label>
+				<input type="text" id="firstName" name="firstName" required>
+
+				<label for="lastname">Last Name:</label>
+				<input type="text" id="lastName" name="lastName" required>
+
+                <label for="numTrainee">Number of Trainees:</label>
+				<input type="number" id="numTrainee" name="numTrainee" required>
+
+            </fieldset>
+
+			<input type="submit" value="Add Trainer" name="Add_Trainer" style="margin:.5rem;">
+        </form>
+	</div>
+
+</body>
+</html>

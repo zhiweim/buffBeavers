@@ -1,0 +1,56 @@
+<!-- 
+Citation for the following code:
+Date: 06/05/2022
+Adapted from edit_people.j2 from:
+https:github.com/osu-340-ecampus/flask-start-app/blob/master/bsg_people_app/templates/edit_people.j2 
+-->
+
+<html>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<head>
+    <title>Edit Gym</title>
+</head>
+ 
+<body>
+    <div>
+        <table border="1" cellpadding="5">
+            <caption> Editing Gym: </caption>
+            {% if data %}
+                <thead>
+                    <tr>
+                        <th>Gym ID</th>
+						<th>Location</th>
+						<th>Number of Users</th>
+						<th>Number of Trainers</th>
+                    </tr>
+ 
+                <tbody>
+                    {% for item in data %}
+                    <tr>
+                        {% for key in item.keys() %}
+                        <td>{{item[key]}}</td> {% endfor %}
+                    </tr>
+                    {% endfor %}
+            {% endif %}
+        </table>
+ 
+        <div>
+            <form id="editGym" action="/edit_gyms/{{data[0].gymID}}" method="POST">
+                <legend><strong>Edit Gym</strong></legend>
+                <fieldset>  
+                    <label for="location">Location:</label>
+                    <input type="text" value="{{data[0].location}}" id="location" name="location" pattern="[A-Za-z]{1,}" required>
+                    
+                    <label for="numUser">Number of Users:</label>
+                    <input type="text" value="{{data[0].numUser}}" id="numUser" name="numUser" pattern="[A-Za-z0-9]{1,}" required>
+ 
+                    <label for="numTrainee">Number of Trainers:</label>
+                    <input type="text" value="{{data[0].numTrainer}}" id="numTrainer" name="numTrainer" pattern="[A-Za-z0-9]{1,}" required>
+ 
+                </fieldset>
+                <input type="submit" value="Edit Gym" name="Edit_Gym"  style="margin:.5rem;">
+                <a href='/gyms'><input type="button" value="Cancel"></a>
+            </form>
+ 
+</html>

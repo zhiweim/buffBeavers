@@ -1,0 +1,101 @@
+<!-- 
+Citation for the following code:
+Date: 06/05/2022
+Adapted from people.j2 from:
+https:github.com/osu-340-ecampus/flask-start-app/blob/master/bsg_people_app/templates/people.j2 
+-->
+
+<html>
+<head>
+	<title>Workout Entries</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+	<ul>
+		<li><a class="active" href="/">Home</a></li>
+		<li><a href="/gyms">Gyms</a></li>
+		<li><a href="/users">Users</a></li>
+		<li><a href="/trainers">Trainers</a></li>
+		<li><a href="/workout_entries">Workout Entries</a></li>
+		<li><a href="/class_descriptions">Class Descriptions</a></li>
+		<li><a href="/class_schedules">Class Schedules</a></li>
+	</ul>
+	<div>
+
+		<p><strong> Enter a User ID to access all of their workout entries. </strong></p>
+		<form method="POST">
+			<input type="text" placeholder="User ID" name="userID">
+			<input type="submit" name="search" value="Search">
+		</form>
+
+		<h1 class="main-table">Workout Entries</h1> 
+		<table border="1" cellpadding="5" class="main-table">
+            {% if data %}
+			    <thead>
+				    <tr>
+                        <th>Entry ID</th>
+						<th>User ID</th>
+						<th>Date</th>
+						<th>Workout Name</th>
+						<th>Workout Sets</th>
+						<th>Workout Reps</th>
+						<th>Workout Weights</th>
+						<th>Edit</th>
+						<th>Delete</th>
+                    </tr>
+
+				<tbody>
+					{% for item in data %}
+					    <tr>
+                            {% for key in item.keys() %}
+						    <td> {{item[key]}} </td> 
+                            {% endfor %}
+						    <td><a href="edit_workout_entries/{{item.entryID}}">Edit</a></td>
+						    <td><a href="delete_workout_entries/{{item.entryID}}">Delete</a></td>
+					    </tr> 
+                        {% endfor %} 
+                {% endif %} 
+        </table>   
+	</div>
+	
+	<p> &nbsp </p>
+
+	<div>
+		<form id="insertEntry" action="/workout_entries" method="POST">
+			<legend><strong>Add a New Workout Entry</strong></legend>
+			<fieldset>
+                <label for="userID">User ID:</label>
+                    <select id="userID" name="userID" placeholder="" required>
+                        {% for user in users %}
+                            {% if ["userID"] == data[0].userID %}
+                                <option value="{{ user['userID'] }}" selected> {{user['firstName']}} {{user['lastName']}} </option>
+                            {% else %}
+                                <option value="{{ user['userID'] }}"> {{user["firstName"]}} {{user['lastName']}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+
+                <label for="date">Date:</label>
+				<input type="date" id="date" name="date" required>
+
+				<label for="workoutName">Workout Name:</label>
+				<input type="text" id="workoutName" name="workoutName" required>
+
+				<label for="workoutSet">Number of Sets:</label>
+				<input type="number" id="workoutSet" name="workoutSet" required>
+
+                <label for="wrokoutRep">Number of Reps:</label>
+				<input type="number" id="workoutRep" name="workoutRep" required>
+
+                <label for="workoutWeight">Weight Used:</label>
+				<input type="number" id="workoutWeight" name="workoutWeight" required>
+                
+            </fieldset>
+
+			<input type="submit" value="Add Workout" name="Add_Workout_Entry" style="margin:.5rem;">
+        </form>
+	</div>
+	
+</body>
+</html>

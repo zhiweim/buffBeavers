@@ -1,0 +1,84 @@
+<!-- 
+Citation for the following code:
+Date: 06/05/2022
+Adapted from edit_people.j2 from:
+https:github.com/osu-340-ecampus/flask-start-app/blob/master/bsg_people_app/templates/edit_people.j2 
+-->
+
+<html>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<head>
+    <title>Edit User</title>
+</head>
+ 
+<body>
+    <div>
+        <table border="1" cellpadding="5">
+            <caption> Editing User: </caption>
+            {% if data %}
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Gym ID</th>
+						<th>Email</th>
+						<th>Birthday</th>
+						<th>Trainer ID</th>
+                    </tr>
+ 
+                <tbody>
+                    {% for item in data %}
+                    <tr>
+                        {% for key in item.keys() %}
+                        <td>{{item[key]}}</td> {% endfor %}
+                    </tr>
+                    {% endfor %}
+            {% endif %}
+        </table>
+ 
+        <div>
+            <form id="editUser" action="/edit_users/{{data[0].userID}}" method="POST">
+                <legend><strong>Edit User</strong></legend>
+                <fieldset>  
+                    <label for="firstName">First Name:</label>
+                    <input type="text" value="{{data[0].firstName}}" id="firstName" name="firstName" required>
+                    
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" value="{{data[0].lastName}}" id="lastName" name="lastName" required>
+
+                    <label for="gymID">Gym ID:</label>
+                    <select id="gymID" name="gymID" placeholder="" required>
+                        {% for gym in gyms %}
+                            {% if gym["gymID"] == data[0].gymID %}
+                                <option value="{{ gym['gymID'] }}" selected> {{gym['location']}} </option>
+                            {% else %}
+                                <option value="{{ gym['gymID'] }}"> {{gym['location']}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+
+                    <label for="email">Email:</label>
+                    <input type="email" value="{{data[0].email}}" id="email" name="email">
+               
+                    <label for="birthday">Birthday:</label>
+                    <input type="date" value="{{data[0].birthday}}" id="birthday" name="birthday">
+
+                    <label for="trainerID">Trainer ID:</label>
+                    <select id="trainerID" name="trainerID" placeholder="" required>
+                        {% for trainer in trainers %}
+                            {% if trainer["trainerID"] == data[0].trainerID %}
+                                <option value="{{ trainer['trainerID'] }}" selected> {{trainer['firstName']}} {{trainer['lastName']}} </option>
+                            {% else %}
+                                <option value="{{ trainer['trainerID'] }}"> {{trainer["firstName"]}} {{trainer['lastName']}}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+ 
+                </fieldset>
+                <input type="submit" value="Edit User" name="Edit_User" style="margin:.5rem;">
+                <a href='/users'><input type="button" value="Cancel"></a>
+            </form>
+ 
+</html>

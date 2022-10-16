@@ -1,0 +1,132 @@
+<!--
+# Date: 5/4/2022
+# Based on:
+# Source URL: https://canvas.oregonstate.edu/courses/1870053/assignments/8817246 
+-->
+<html>
+<head>
+<title>Gyms</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript">
+		function showform(dowhat) {
+			if (dowhat == 'insert'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'update'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'none';
+			}
+			else if (dowhat == 'delete'){
+				document.getElementById('browse').style.display = 'none';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'block';
+			}
+      else if (dowhat == 'all'){
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'block';
+				document.getElementById('update').style.display = 'block';
+				document.getElementById('delete').style.display = 'block';
+			}
+			else {
+				document.getElementById('browse').style.display = 'block';
+				document.getElementById('insert').style.display = 'none';
+				document.getElementById('update').style.display = 'none';
+				document.getElementById('delete').style.display = 'none';
+			}
+		}
+    function newGym() { showform('insert'); }
+    function updateGym(pid) { showform('update'); }
+    function deleteGym(pid) { showform ('delete'); }
+    function browseGym() { showform ('browse'); }
+    function showAll() { showform ('all'); }
+</script>
+</head>
+
+<body onload="browseGym()">
+<h1>Gyms</h1>
+
+[ <a href="index.html">Workout Entries</a> | <a href="users.html">Users</a> | <a href="trainers.html">Trainers</a> | <a href="class_schedules.html">Class Schedules</a> | <a href="gyms.html">Gyms</a> | <a href="class_descriptions.html">Class Descriptions</a>]
+
+<div id="browse">
+<p><a href="#" onClick="showAll()">Display all forms</a> </p>
+<table border="1" cellpadding="5">
+  <tr>
+    <th><a href="#" onClick="newGym()">New</a></th>
+    <th></th>
+    <th>Gym ID</th>
+    <th>Number of Users</th>
+    <th>Number of Trainers</th>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateGym('this.GymID')">Edit</a></td>
+    <td><a href="#" onclick="deleteGym('this.GymID')">Delete</a></td>
+    <td >Salem</td>
+    <td>700</td>
+    <td>10</td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateGym('this.GymID')">Edit</a></td>
+    <td><a href="#" onclick="deleteGym('this.GymID')">Delete</a></td>
+    <td>Portland</td>
+    <td>1000</td>
+    <td>25</td>
+  </tr>
+  <tr>
+    <td><a href="#" onClick="updateGym('this.GymID')">Edit</a></td>
+    <td><a href="#" onclick="deleteGym('this.GymID')">Delete</a></td>
+    <td>Corvallis</td>
+    <td>300</td>
+    <td>5</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</div>
+<div id="insert">
+    <form method="POST" id="addGym">
+        <legend><strong>Add Gym</strong></legend>
+          <fieldset class="fields">
+            <label> Location </label> <input type="text" name="location">
+          </fieldset>
+          <input class="btn" type="submit" id="addGym" value="Add Gym">
+          <input class="btn" type="button" value="cancel" onClick="browseGym()">
+	</form> 
+</div>
+<p>&nbsp;</p>
+<div id="update">
+    <form method="POST" id="UpdateGym">
+        <legend><strong>Update Gym</strong></legend>
+          <fieldset class="fields">
+          <input type="hidden" name="GymID" id="updateGymID" value="1">
+          <label> ID: </label> <input type="text" name="gymID"><br>
+          <label> New Location </label> <input type="text" name="fname">
+      </fieldset>
+          <input class="btn" type="submit" id="UpdateSaveGym" value="Update Gym">
+          <input class="btn" type="button" value="cancel" onClick="browseGym()">
+	</form> 
+</div>
+<p>&nbsp;</p>
+<div id="delete" style="display: block">
+  <form method="POST" id="deleteGym">
+      <legend><strong>Delete Gym</strong></legend>
+          <fieldset class="fields">
+          <p>Are you sure you wish to delete the following?</p>
+          <input type="hidden" name="GymID" id="deleteGymID" value="1">
+          <label><strong>ID:</strong></label>
+            <label> <strong></strong> </label> <input type="text" name="userID">
+            
+    </fieldset>
+    <input class="btn" type="submit" id="DeleteGym" value="Delete Gym">
+          <input class="btn" type="button" value="cancel" onClick="browseGym()">
+  </form> 
+</div>
+
+</body>
+</html>
+
+

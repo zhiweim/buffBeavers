@@ -1,0 +1,70 @@
+<!-- 
+Citation for the following code:
+Date: 06/05/2022
+Adapted from people.j2 from:
+https:github.com/osu-340-ecampus/flask-start-app/blob/master/bsg_people_app/templates/people.j2 
+-->
+
+<html>
+<head>
+	<title>Class Descriptions</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+	<ul>
+		<li><a class="active" href="/">Home</a></li>
+		<li><a href="/gyms">Gyms</a></li>
+		<li><a href="/users">Users</a></li>
+		<li><a href="/trainers">Trainers</a></li>
+		<li><a href="/workout_entries">Workout Entries</a></li>
+		<li><a href="/class_descriptions">Class Descriptions</a></li>
+		<li><a href="/class_schedules">Class Schedules</a></li>
+	</ul>
+	<div>
+		<h1 class="main-table">Class Descriptions</h1> 
+		<table border="1" cellpadding="5" class="main-table">
+            {% if data %}
+			    <thead>
+				    <tr>
+						<th>Class ID</th>
+						<th>Class Name</th>
+						<th>Description</th>
+						<th>Edit</th>
+						<th>Delete</th>
+                    </tr>
+				<tbody>
+					{% for item in data %}
+					    <tr>
+                            {% for key in item.keys() %}
+						    <td> {{item[key]}} </td> 
+                            {% endfor %}
+						    <td><a href="edit_class_descriptions/{{item.classID}}">Edit</a></td>
+						    <td><a href="delete_class_descriptions/{{item.classID}}">Delete</a></td>
+					    </tr> 
+                        {% endfor %} 
+                {% endif %} 
+        </table>   
+
+	<p>&nbsp;</p>
+	</div>
+
+	<div>
+		<form id="insertClassDescription" action="/class_descriptions" method="POST">
+			<legend><strong>Add a New Class</strong></legend>
+			<fieldset>
+                <label for="className">Class Name:</label>
+				<input type="text" id="className" name="className" required>
+
+                <label for="description">Description:</label>
+				<input type="text" id="description" name="description" required>
+
+            </fieldset>
+
+			<input type="submit" value="Add Class Description" name="Add_Class_Description" style="margin:.5rem;">
+        </form>
+	</div>
+
+</body>
+</html>
